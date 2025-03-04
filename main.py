@@ -68,6 +68,7 @@ def start(store_object):
 
 
 def main():
+    '''main function to start the store'''
     start(best_buy)
 
 if __name__ == "__main__":
