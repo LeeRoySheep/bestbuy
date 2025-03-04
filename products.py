@@ -1,14 +1,16 @@
 class Product:
+    '''A class representing a product'''
     def __init__(self, name, price, quantity):
+        '''Initializes the product'''
         self.name = name
         self.price = price
         self.quantity = quantity
         self.active = True
         if not name:
             raise ValueError("Name cannot be empty!")
-        elif price < 0:
+        if price < 0:
             raise ValueError("Price cannot be negative!")
-        elif quantity < 0:
+        if quantity < 0:
             raise ValueError("Quantity cannot be negative!")
 
 
@@ -44,14 +46,15 @@ class Product:
 
     def buy(self, quantity):
         '''Buys a quantity of the product, updates quantity and returns the total price'''
-        if quantity > self.quantity:
-            raise ValueError("Not enough stock!")
-        else:
+        if quantity <= self.quantity:
             self.quantity -= quantity
             return self.price * quantity
+        else:
+            raise ValueError("Not enough quantity to buy!")
 
 
 def main():
+    '''Main function as using example and for testing purposes'''
     bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
     mac = Product("MacBook Air M2", price=1450, quantity=100)
 

@@ -1,6 +1,7 @@
 import  products
 
 class Store:
+    '''Store class creating a stor with a list of products'''
     def __init__(self, list_of_products):
         self.list_of_products = list_of_products
 
@@ -35,14 +36,17 @@ class Store:
         for product_quantity in shopping_list:
             for product in self.list_of_products:
                 if product == product_quantity[0]:
-                    if product_quantity[1] > product.get_quantity():
-                        raise  ValueError("Error while making order! Quantity larger than what exists")
-                    else:
+                    if product_quantity[1] <= product.get_quantity():
                         total_price += product.buy(product_quantity[1])
+                    else:
+                        raise ValueError(
+                            "Error while making order! Quantity larger than what exists"
+                        )
         return total_price
 
 
 def main():
+    '''Main function as using example and for testing purposes'''
     product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
                     products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
                     products.Product("Google Pixel 7", price=500, quantity=250),
@@ -55,5 +59,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
