@@ -48,9 +48,9 @@ class Product:
         '''Buys a quantity of the product, updates quantity and returns the total price'''
         if quantity <= self.quantity:
             self.quantity -= quantity
-            return self.price * quantity
         else:
             raise ValueError("Not enough quantity to buy!")
+        return self.price * quantity
 
 
 def main():

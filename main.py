@@ -50,8 +50,11 @@ def start(store_object):
                 try:
                     product = store_object.list_of_products[int(product_index) - 1]
                     order_amount = int(order_quantity)
-                except ValueError or IndexError:
+                except ValueError:
                     print("Invalid input! Try again!")
+                    continue
+                except IndexError:
+                    print("Invalid product index! Try again!")
                     continue
                 order_list.append((product, order_amount))
             try:
