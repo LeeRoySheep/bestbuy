@@ -43,7 +43,7 @@ class Product:
 
 
     def buy(self, quantity):
-        '''Buys quantity of the product, updates quantity and returns the total price'''
+        '''Buys a quantity of the product, updates quantity and returns the total price'''
         if quantity > self.quantity:
             raise ValueError("Not enough stock!")
         else:
