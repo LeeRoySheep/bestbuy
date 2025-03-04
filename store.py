@@ -33,9 +33,12 @@ class Store:
         '''Orders a list of products'''
         total_price = 0
         for product_quantity in shopping_list:
-            for p in self.list_of_products:
-                if p == product_quantity[0]:
-                    total_price += p.buy(product_quantity[1])
+            for product in self.list_of_products:
+                if product == product_quantity[0]:
+                    if product_quantity[1] > product.get_quantity():
+                        raise  ValueError("Error while making order! Quantity larger than what exists")
+                    else:
+                        total_price += product.buy(product_quantity[1])
         return total_price
 
 
