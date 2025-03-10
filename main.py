@@ -24,43 +24,49 @@ def print_product_menu(store_obj):
     index = 0
     print("------")
     for product in store_obj.list_of_products:
-        index += 1
-        print(f"{index}. " + product.show())
+        if product.is_active():
+            index += 1
+            print(f"{index}. " + product.show())
     print("------")
+
+
+def make_order(store_object):
+    """function to make an order_list and call store.order"""
+    order_list = []
+    print_product_menu(store_object)
+    print("When you want to finish order, enter empty text.")
+    while True:
+        product_index = input("Which product # do you want: ")
+        order_quantity = input("What amount do you want: ")
+        if not product_index or not order_quantity:
+            break
+        try:
+            product = store_object.list_of_products[int(product_index) - 1]
+            order_amount = int(order_quantity)
+        except ValueError:
+            print("Invalid input! Try again!")
+            continue
+        except IndexError:
+            print("Invalid product index! Try again!")
+            continue
+        order_list.append((product, order_amount))
+    try:
+        print(f"Order made! Total payment: ${store_object.order(order_list)}")
+    except ValueError as val_err:
+        print(val_err)
 
 
 def start(store_object):
     '''Starts the store'''
     while True:
         print_main_menu()
-        choice = input("Enter your choice: ")
+        choice = input("Please choose a number: ")
         if choice == "1":
             print_product_menu(store_object)
         elif choice == "2":
             print(f"Total of {store_object.get_total_quantity()} items in store")
         elif choice == "3":
-            order_list = []
-            print_product_menu(store_object)
-            print("When you want to finish order, enter empty text.")
-            while True:
-                product_index = input("Which product # do you want: ")
-                order_quantity = input("What amount do you want: ")
-                if not product_index or not order_quantity:
-                    break
-                try:
-                    product = store_object.list_of_products[int(product_index) - 1]
-                    order_amount = int(order_quantity)
-                except ValueError:
-                    print("Invalid input! Try again!")
-                    continue
-                except IndexError:
-                    print("Invalid product index! Try again!")
-                    continue
-                order_list.append((product, order_amount))
-            try:
-                print(f"Order made! Total payment: ${store_object.order(order_list)}")
-            except ValueError as val_err:
-                print(val_err)
+            make_order(store_object)
         elif choice == "4":
             break
         else:

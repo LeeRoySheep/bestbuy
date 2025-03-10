@@ -22,6 +22,8 @@ class Product:
     def set_quantity(self, quantity):
         '''Sets the quantity of the product'''
         self.quantity = quantity
+        if quantity == 0:
+            self.deactivate()
 
 
     def is_active(self):
@@ -48,6 +50,8 @@ class Product:
         '''Buys a quantity of the product, updates quantity and returns the total price'''
         if quantity <= self.quantity:
             self.quantity -= quantity
+            if self.quantity == 0:
+                self.deactivate()
         else:
             raise ValueError("Not enough quantity to buy!")
         return self.price * quantity
